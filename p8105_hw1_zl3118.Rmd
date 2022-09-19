@@ -1,0 +1,88 @@
+---
+title: "p8105_hw1_zl118"
+output: html_document
+author: "Shirley Liang"
+date: '2022-09-18'
+---
+
+***
+
+### Problem 1
+
+```{r problem1}
+
+data("penguins", package = "palmerpenguins")
+
+```
+
+#### The penguins dataset has `r nrow(penguins)` penguin observations and `r ncol(penguins)` variables, and include information such as `r names(penguins)`. The mean flipper length of the observed penguins is `r penguins <- na.omit(penguins)``r mean(penguins$flipper_length_mm)`excluding missing values.
+
+> #### This is the scatter plot of of flipper length vs. bill length in the penguins dataset color coded based on species.
+
+```{r problem1 scatter plot, message = FALSE}
+
+library(tidyverse)
+
+ggplot(data = penguins, aes(x = bill_length_mm, y = flipper_length_mm)) + geom_point(aes( color = species), alpha = 0.5)
+
+ggsave("Scatter Plot of flipper length vs. bill length.png", height = 4, width = 4)
+
+```
+ggplot is saved as "Scatter Plot of flipper length vs. bill length.png".
+
+***
+
+### Problem 2
+
+#### I am creating a data frame comprised of:
+#### - random sample of size 10 from a standard Normal distribution
+#### - logical vector indicating whether elements of the sample are greater than 0
+#### - character vector of length 10
+#### - factor vector of length 10, with 3 different factor “levels”
+
+```{r problem2 create a data frame}
+
+library(tibble)
+
+set.seed(1)
+problem2_dataframe = tibble(
+  x1_random = rnorm(10, mean = 0, sd = 1),
+  x2_logi = x1_random > 0,
+  x3_char = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J"),
+  x4_factor = factor(c("High", "Low", "High", "Low", "High", "Medium","Low", "Low", "Medium", "High"))
+)
+
+samp1 <- pull(problem2_dataframe, x1_random)
+samp2 <- pull(problem2_dataframe, x2_logi)
+samp3 <- pull(problem2_dataframe, x3_char)
+samp4 <- pull(problem2_dataframe, x4_factor)
+
+```
+
+```{r problem2 show my variable in the data frame created}
+
+problem2_dataframe$x1_random
+problem2_dataframe$x2_logi
+problem2_dataframe$x3_char
+problem2_dataframe$x4_factor
+
+```
+
+#### - The mean of variable x1_random is `r mean(samp1)`.
+#### - The mean of variable x2_logi is `r mean(samp2)`.
+#### - The mean of variable x3_char is `r mean(samp3)`.
+#### - The mean of variable x4_factor is `r mean(samp4)`.
+
+#### Only varibale x1_random and x2_logi have a meaningful mean. Character vector and factor vector do not have mean. 
+
+> #### Now I convert my four variables to numeric.
+``` {r problem2 convert using as.numeric, warning = FALSE}
+
+num_x1_random <- as.numeric(problem2_dataframe$x1_random)
+num_x2_logi <- as.numeric(problem2_dataframe$x2_logi)
+num_x3_char <- as.numeric(problem2_dataframe$x3_char)
+num_x4_factor <- as.numeric(problem2_dataframe$x4_factor)
+
+```
+
+#### I am able to convert all 4 variables to numeric **except character variable**. Character varibale cannot be convert to numeric, therefore it does not have mean. Factor varible can be converted to numeric ("Low","Medium","High" into 1,2,3). However, the mean of those number is not meaningful.
