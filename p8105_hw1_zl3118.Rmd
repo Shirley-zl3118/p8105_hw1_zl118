@@ -55,7 +55,7 @@ problem2_dataframe = tibble(
 samp1 <- pull(problem2_dataframe, x1_random)
 samp2 <- pull(problem2_dataframe, x2_logi)
 samp3 <- pull(problem2_dataframe, x3_char)
-samp4 <- pull(problem2_dataframe, x4_factor)
+samp4 <- pull(problem2_dataframe, x4_factor) 
 
 ```
 
